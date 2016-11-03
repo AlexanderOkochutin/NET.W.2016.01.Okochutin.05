@@ -10,7 +10,7 @@ namespace Task01.Logic
     /// </summary>
     public static class MathHelper
     {
-        #region public API
+        #region public API 
 
         /// <summary>
         /// Type of GCD algorithm

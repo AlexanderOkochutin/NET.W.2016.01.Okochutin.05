@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3A8D07DF-4C26-435A-8339-863FB2AD4651}</ProjectGuid>
+    <ProjectGuid>{AB5D885E-0444-4845-AB1F-E31DAD037383}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Task01.NUnitTests</RootNamespace>
-    <AssemblyName>Task01.NUnitTests</AssemblyName>
+    <RootNamespace>Task01.Logic_refactoring_</RootNamespace>
+    <AssemblyName>Task01.Logic%28refactoring%29</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,21 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MathHelperTests.cs" />
+    <Compile Include="MathHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Task01.Logic%28refactoring%29\Task01.Logic%28refactoring%29.csproj">
-      <Project>{ab5d885e-0444-4845-ab1f-e31dad037383}</Project>
-      <Name>Task01.Logic%28refactoring%29</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Task01.Logic\Task01.Logic.csproj">
-      <Project>{05edc472-4193-444b-93c1-2c425593ad11}</Project>
-      <Name>Task01.Logic</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
