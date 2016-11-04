@@ -25,16 +25,28 @@ namespace Task02.Logic_refactoring_
             }
 
             int i = 0;
+            int count = 0;
             bool tryAgain = true;
+
+            #region move null elements to the end
+            for (int j = 0; j < data.Length; j++)
+            {
+                if (data[j] != null)
+                    data[count++] = data[j];
+            }
+
+            for (int j = count; j < data.Length; j++)
+            {
+                data[j] = null;
+            }
+            #endregion
+
+            #region bubble sort algorithm
             while (tryAgain)
             {
                 tryAgain = false;
-                for (int j = 0; j < data.Length - i - 1; j++)
+                for (int j = 0; j < count - i - 1; j++)
                 {
-                    if (data[j] == null || data[j + 1] == null)
-                    {
-                        throw new ArgumentNullException(nameof(data),"Rows of input array must be not null");
-                    }
 
                     if (comparer.Compare(data[j], data[j + 1]) > 0)
                     {
@@ -44,6 +56,7 @@ namespace Task02.Logic_refactoring_
                 }
                 i++;
             }
+            #endregion
         }
 
         /// <summary>

@@ -91,7 +91,10 @@ namespace Task02.NUnitTests
         public void BubbleSort_TestData1_ExpectedData1()
         {
             TestData1.BubbleSort(new SumDecComparer());
-            CollectionAssert.AreEqual(TestData1,ExpectedData1);
+            for (int i = 0; i < TestData1.Length; i++)
+            {
+                Assert.AreEqual(TestData1[i],ExpectedData1[i]);
+            }
         }
 
         [Test]
@@ -101,7 +104,7 @@ namespace Task02.NUnitTests
             CollectionAssert.AreEqual(TestData2, ExpectedData2);
         }
 
-        [Test]
+     [Test]
         public void BubbleSort_TestData3_ExpectedData3()
         {
             TestData3.BubbleSort(new MaxElemDecComparer());
