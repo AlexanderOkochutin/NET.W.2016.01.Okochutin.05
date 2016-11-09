@@ -51,13 +51,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Task01.Logic%28refactoring%29\Task01.Logic%28refactoring%29.csproj">
+    <ProjectReference Include="..\Task01.Logic%28refactoring%29\Task01.Logic%28without delegates%29.csproj">
       <Project>{ab5d885e-0444-4845-ab1f-e31dad037383}</Project>
-      <Name>Task01.Logic%28refactoring%29</Name>
+      <Name>Task01.Logic%28without delegates%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Task01.Logic\Task01.Logic.csproj">
+    <ProjectReference Include="..\Task01.Logic\Task01.Logic%28delegates%29.csproj">
       <Project>{05edc472-4193-444b-93c1-2c425593ad11}</Project>
-      <Name>Task01.Logic</Name>
+      <Name>Task01.Logic%28delegates%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
