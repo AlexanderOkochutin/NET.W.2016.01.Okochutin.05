@@ -46,12 +46,12 @@ namespace Task01.Logic_refactoring_
         /// <returns>greatest common divisir of all given numbers</returns>
         /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
         /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid, or length of input array less than 2</exception>
-        /// <exception cref="NullReferenceException"> throw when input array is null</exception>
+        /// <exception cref="ArgumentNullException"> throw when input array is null</exception>
         public static int EuclideanGCD(params int[] data)
         {
             if (data == null)
             {
-                throw new NullReferenceException();
+                throw new ArgumentNullException();
             }
 
             if (data.Length < 2)
@@ -113,27 +113,15 @@ namespace Task01.Logic_refactoring_
         /// <returns>greatest common divisir of all given numbers</returns>
         /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
         /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid, or length of input array less than 2</exception>
-        /// <exception cref="NullReferenceException"> throw when input array is null</exception>
+        /// <exception cref="ArgumentNullException"> throw when input array is null</exception>
         public static int EuclideanGCD( out long time,params int[] data)
         {
-            if (data == null)
-            {
-                throw  new NullReferenceException();
-            }
-            if (data.Length < 2)
-            {
-                throw new ArgumentException("input array length must be more than 1", nameof(data));
-            }
             Stopwatch watcher = new Stopwatch();
             watcher.Start();
-            int temp = Euclidean(data[0], data[1]);
-            for (int i = 2; i < data.Length; i++)
-            {
-                temp = Euclidean(temp, data[i]);
-            }
+            int result = EuclideanGCD(data);
             watcher.Stop();
             time = watcher.Elapsed.Ticks;
-            return temp;
+            return result;
         }
 
         #endregion
@@ -173,12 +161,12 @@ namespace Task01.Logic_refactoring_
         /// <returns>greatest common divisir of all given numbers</returns>
         /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
         /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid, or length of input array less than 2</exception>
-        /// <exception cref="NullReferenceException"> throw when input array is null</exception>
+        /// <exception cref="ArgumentNullException"> throw when input array is null</exception>
         public static int BinaryGCD(params int[] data)
         {
             if (data == null)
             {
-                throw new NullReferenceException();
+                throw new ArgumentNullException();
             }
 
             if (data.Length < 2)
@@ -241,29 +229,16 @@ namespace Task01.Logic_refactoring_
         /// <returns>greatest common divisir of all given numbers</returns>
         /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
         /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid, or length of input array less than 2</exception>
-        /// <exception cref="NullReferenceException"> throw when input array is null</exception>
+        /// <exception cref="ArgumentNullException"> throw when input array is null</exception>
         public static int BinaryGCD(out long time, params int[] data)
         {
-            if (data == null)
-            {
-                throw new NullReferenceException();
-            }
-
-            if (data.Length < 2)
-            {
-                throw new ArgumentException("input array length must be more than 1", nameof(data));
-            }
-
+            
             Stopwatch watcher = new Stopwatch();
             watcher.Start();
-            int temp = Binary(data[0], data[1]);
-            for (int i = 2; i < data.Length; i++)
-            {
-                temp = Binary(temp, data[i]);
-            }
+            int result = BinaryGCD(data);
             watcher.Stop();
             time = watcher.Elapsed.Ticks;    
-            return temp;
+            return result;
         }
 
         #endregion

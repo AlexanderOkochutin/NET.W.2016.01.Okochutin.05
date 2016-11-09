@@ -5,62 +5,234 @@ using System.Runtime.Remoting.Messaging;
 
 namespace Task01.Logic
 {
-    /// <summary>
-    /// Extension math tools
-    /// </summary>
     public static class MathHelper
     {
-        #region public API 
-
+        #region EuclideanGCD overloaded methods
         /// <summary>
-        /// Type of GCD algorithm
+        /// Euclidean algorithm of finding greatest common divisior
         /// </summary>
-        public enum AlgorithmGcd
+        /// <param name="a"> first int number</param>
+        /// <param name="b"> second int number</param>
+        /// <returns> greatest common divisior of first and second number</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid</exception>
+        public static int EuclideanGCD(int a, int b)
         {
-            Euclidean,Binary
+            return GCD(a, b, Euclidean);
         }
 
         /// <summary>
-        /// Get Greatest Common Divisior method
+        /// Euclidean algorithm of finding greatest common divisior
         /// </summary>
-        /// <param name="algorithm"> one of two algoritms from service Enum</param>
-        /// <param name="data">input int numbers</param>
-        /// <returns>GCD of all input numbers</returns>
+        /// <param name="a">first int number</param>
+        /// <param name="b">second int number</param>
+        /// <param name="c">third int number</param>
+        /// <returns>common divisior of given numbers</returns>
         /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
         /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid</exception>
-        public static int GCD(AlgorithmGcd algorithm,params int[] data)
+        public static int EuclideanGCD(int a, int b, int c)
         {
-            if (algorithm != AlgorithmGcd.Binary && algorithm != AlgorithmGcd.Euclidean)
-            {
-                throw  new ArgumentException("number of algorithm is not valid",nameof(algorithm));
-            }
-
-            return algorithm == AlgorithmGcd.Euclidean ? data.Aggregate(EuclideanGCD) : data.Aggregate(BinaryGCD);
+            return GCD(a,b,c,Euclidean);
         }
 
         /// <summary>
-        /// Get Greatest Common Divisior method with time check
+        /// Euclidean algorithm of finding greatest common divisior
         /// </summary>
-        /// <param name="algorithm">one of two algoritms from service Enum</param>
-        /// <param name="algorithmTime">TimeSpan of algorithm running</param>
-        /// <param name="data">input int numbers</param>
-        /// <returns>GCD of all input numbers</returns>
+        /// <param name="data">input array of int</param>
+        /// <returns>greatest common divisir of all given numbers</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid, or length of input array less than 2</exception>
+        /// <exception cref="ArgumentNullException"> throw when input array is null</exception>
+        public static int EuclideanGCD(params int[] data)
+        {
+            return GCD(Euclidean, data);
+        }
+
+        /// <summary>
+        /// Euclidean algorithm of finding greatest common divisior
+        /// </summary>
+        /// <param name="a"> first int number</param>
+        /// <param name="b"> second int number</param>
+        /// <param name="time">time of algorithm running</param>
+        /// <returns> greatest common divisior of first and second number</returns>
         /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
         /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid</exception>
-        public static int GCD(AlgorithmGcd algorithm,out TimeSpan algorithmTime,params int[] data)
+        public static int EuclideanGCD(int a, int b, out long time)
         {
-            if (algorithm != AlgorithmGcd.Binary && algorithm != AlgorithmGcd.Euclidean)
+            return GCD(a,b,Euclidean,out time);
+        }
+
+        /// <summary>
+        /// Euclidean algorithm of finding greatest common divisior
+        /// </summary>
+        /// <param name="a">first int number</param>
+        /// <param name="b">second int number</param>
+        /// <param name="c">third int number</param>
+        /// <param name="time"> time of running algorithm</param>
+        /// <returns>common divisior of given numbers</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid</exception>
+        public static int EuclideanGCD(int a, int b, int c, out long time)
+        {
+            return GCD(a, b, c, Euclidean, out time);
+        }
+
+        /// <summary>
+        /// Euclidean algorithm of finding greatest common divisior
+        /// </summary>
+        /// <param name="data">input array of int</param>
+        /// <param name="time">time of running algorithm</param>
+        /// <returns>greatest common divisir of all given numbers</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid, or length of input array less than 2</exception>
+        /// <exception cref="ArgumentNullException"> throw when input array is null</exception>
+        public static int EuclideanGCD(out long time, params int[] data)
+        {
+            return GCD(Euclidean, out time, data);
+        }
+
+        #endregion
+
+        #region BinaryGCD overloaded methods
+        /// <summary>
+        /// Binary algorithm of finding greatest common divisior
+        /// </summary>
+        /// <param name="a"> first int number</param>
+        /// <param name="b"> second int number</param>
+        /// <returns> greatest common divisior of first and second number</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid</exception>
+        public static int BinaryGCD(int a, int b)
+        {
+            return GCD(a,b,Binary);
+        }
+
+        /// <summary>
+        /// Binary algorithm of finding greatest common divisior
+        /// </summary>
+        /// <param name="a">first int number</param>
+        /// <param name="b">second int number</param>
+        /// <param name="c">third int number</param>
+        /// <returns>common divisior of given numbers</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid</exception>
+        public static int BinaryGCD(int a, int b, int c)
+        {
+            return GCD(a,b,c,Binary);
+        }
+
+        /// <summary>
+        /// Binary algorithm of finding greatest common divisior
+        /// </summary>
+        /// <param name="data">input array of int</param>
+        /// <returns>greatest common divisir of all given numbers</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid, or length of input array less than 2</exception>
+        /// <exception cref="ArgumentNullException"> throw when input array is null</exception>
+        public static int BinaryGCD(params int[] data)
+        {
+            return GCD(Binary, data);
+        }
+
+        /// <summary>
+        /// Binary algorithm of finding greatest common divisior
+        /// </summary>
+        /// <param name="a"> first int number</param>
+        /// <param name="b"> second int number</param>
+        /// <param name="time">time of algorithm running</param>
+        /// <returns> greatest common divisior of first and second number</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid</exception>
+        public static int BinaryGCD(int a, int b, out long time)
+        {
+            return GCD(a, b, Binary, out time);
+        }
+
+        /// <summary>
+        /// Binary algorithm of finding greatest common divisior
+        /// </summary>
+        /// <param name="a">first int number</param>
+        /// <param name="b">second int number</param>
+        /// <param name="c">third int number</param>
+        /// <param name="time"> time of running algorithm</param>
+        /// <returns>common divisior of given numbers</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid</exception>
+        public static int BinaryGCD(int a, int b, int c, out long time)
+        {
+            return GCD(a, b, c, Binary, out time);
+        }
+
+        /// <summary>
+        /// Binary algorithm of finding greatest common divisior
+        /// </summary>
+        /// <param name="data">input array of int</param>
+        /// <param name="time">time of running algorithm</param>
+        /// <returns>greatest common divisir of all given numbers</returns>
+        /// <exception cref="OverflowException"> throw when one of numbers equal int.minvalue</exception>
+        /// <exception cref="ArgumentException"> throw when two neighbours are zero or when number of algoritm is not valid, or length of input array less than 2</exception>
+        /// <exception cref="ArgumentNullException"> throw when input array is null</exception>
+        public static int BinaryGCD(out long time, params int[] data)
+        {
+            return GCD(Binary, out time, data);
+        }
+
+        #endregion
+
+        #region private AlgorithmCallers
+
+        private static int GCD(int a, int b, Func<int, int, int> algorithm)
+        {
+            return algorithm(a,b);
+        }
+
+        private static int GCD(int a, int b, int c, Func<int, int, int> algorithm)
+        {
+            return algorithm(algorithm(a, b),c);
+        }
+
+        private static int GCD(Func<int, int, int> algorithm, params int[] data)
+        {
+            if (data == null)
             {
-                throw new ArgumentException("number of algorithm is not valid", nameof(algorithm));
+                throw new ArgumentNullException();
             }
 
+            if (data.Length < 2)
+            {
+                throw new ArgumentException("input array length must be more than 1", nameof(data));
+            }
+            return data.Aggregate(algorithm);
+        }
+
+        private static int GCD(int a, int b, Func<int, int, int> algorithm, out long time)
+        {
             Stopwatch watcher = new Stopwatch();
-            int gcdExpected = 0;
             watcher.Start();
-            gcdExpected = algorithm == AlgorithmGcd.Euclidean ? data.Aggregate(EuclideanGCD) : data.Aggregate(BinaryGCD);
+            int result = GCD(a, b, algorithm);
             watcher.Stop();
-            algorithmTime = watcher.Elapsed;
-            return gcdExpected;
+            time = watcher.Elapsed.Ticks;
+            return result;
+        }
+
+        private static int GCD(int a, int b, int c, Func<int, int, int> algorithm, out long time)
+        {
+            Stopwatch watcher = new Stopwatch();
+            watcher.Start();
+            int result = GCD(a, b, c, algorithm);
+            watcher.Stop();
+            time = watcher.Elapsed.Ticks;
+            return result;
+        }
+
+        private static int GCD(Func<int, int, int> algorithm, out long time, params int[] data)
+        {
+            Stopwatch watcher = new Stopwatch();
+            watcher.Start();
+            int result = GCD(algorithm,data);
+            watcher.Stop();
+            time = watcher.Elapsed.Ticks;
+            return result;
         }
 
         #endregion
@@ -69,7 +241,7 @@ namespace Task01.Logic
         /// <summary>
         /// Euclidean GCD algorithm
         /// </summary>
-        private static int EuclideanGCD(int a, int b)
+        private static int Euclidean(int a, int b)
         {
             a = Math.Abs(a);
             b = Math.Abs(b);
@@ -95,7 +267,7 @@ namespace Task01.Logic
         /// <summary>
         /// BInary GCD algorithm
         /// </summary>
-        private static int BinaryGCD(int a, int b)
+        private static int Binary(int a, int b)
         {
             a = Math.Abs(a);
             b = Math.Abs(b);
