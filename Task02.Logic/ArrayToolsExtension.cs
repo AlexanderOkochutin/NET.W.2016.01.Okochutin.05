@@ -5,77 +5,72 @@ using System.Linq;
 namespace Task02.Logic
 {
     /// <summary>
-    /// Extension tools for int array
+    /// Static class for extension array functionality
     /// </summary>
-    /// 
     public static class ArrayToolsExtension
     {
-        #region ServiceEnums
         /// <summary>
-        /// Order of sort increase or decrease
+        /// Bubble sort of rows in jagged  array of integer
         /// </summary>
-        public enum Order
+        /// <param name="data">input jagged array of integer</param>
+        /// <param name="comparer">delegate-comparator must return -1 or 1 or 0(criteria of sort: sum of elements in row for example)</param>
+        public static void BubbleSort(this int[][] data, Func<int[], int[], int> comparer)
         {
-            Increase = 1,
-            Decrease = -1
+            CompareAdapter test = new CompareAdapter(comparer);
+            data.BubbleSort(test);
         }
 
         /// <summary>
-        /// Sorting Criteria, Sum of elements in rows, max or min element in row
+        /// Bubble sort of rows in jagged  array of integer
         /// </summary>
-        public enum SortingCreteria
+        /// <param name="data">input jagged array of integer</param>
+        /// <param name="comparer">comparator(criteria of sort: sum of elements in row for example or Max element in row)</param>
+        public static void BubbleSort(this int[][] data, IComparer<int[]> comparer)
         {
-            SumOfRowElem, MaxRowElem, MinRowElem
+            CompareAdapter test = new CompareAdapter(comparer);
+            data.BubbleSort(test);
         }
 
-        #endregion
 
-        #region BubbleSortAPI
         /// <summary>
-        /// Bubble sort of rows in jagged array
+        /// Algorithm of Bubble sort of rows in jagged  array of integer with given criteria of sort
         /// </summary>
-        /// <param name="data">jagged array of int</param>
-        /// <param name="sortCriteria">one of criteria from Service Enums SUM MIN MAX</param>
-        /// <param name="order">one of order from Service Enums INC or DEC</param>
-        /// <exception cref="OverflowException">when sort criteria is SUM put in block try-catch</exception>
-        /// <exception cref="ArgumentException">when number of sort criteria or order is not valid</exception>
-        public static void BubbleSort(this int[][] data, SortingCreteria sortCriteria, Order order)
+        /// <param name="data">input jagged array of integer</param>
+        /// <param name="comparer">criteria of sort (sum of elements in Row for example)</param>
+        /// <param name="compareCompareAdapter">Compare-adapter based on delegate-comparere or comparator</param>
+        /// <exception cref="ArgumentNullException"> throw if input array or one of the row in input array is null</exception>
+        private static void BubbleSort(this int[][] data, CompareAdapter compareAdapter)
         {
-            if (order != Order.Decrease && order != Order.Increase)
+            if (data == null)
             {
-                throw new ArgumentException("order param is not valid",nameof(order));
+                throw new ArgumentNullException(nameof(data));
             }
-            switch (sortCriteria)
-            {
-                case SortingCreteria.SumOfRowElem:
-                    BubbleSort(data,new Comparer((a) => (a.Sum()),order));
-                    break;
-                case SortingCreteria.MaxRowElem:
-                    BubbleSort(data, new Comparer((a) => (a.Max()), order));
-                    break;
-                case SortingCreteria.MinRowElem:
-                    BubbleSort(data, new Comparer((a) => (a.Min()), order));
-                    break;
-                default:
-                    throw new ArgumentException("Sort criteria is not valid",nameof(sortCriteria));
-                    break;
-            }            
-        }
 
-        #endregion
-
-        #region BubbleSortLogic
-
-        private static void BubbleSort(int[][] data, Comparer comparer)
-        {
             int i = 0;
+            int count = 0;
             bool tryAgain = true;
+
+            #region move null elements to the end
+            for (int j = 0; j < data.Length; j++)
+            {
+                if (data[j] != null)
+                    data[count++] = data[j];
+            }
+
+            for (int j = count; j < data.Length; j++)
+            {
+                data[j] = null;
+            }
+            #endregion
+
+            #region bubble sort algorithm
             while (tryAgain)
             {
                 tryAgain = false;
-                for (int j = 0; j < data.Length - i - 1; j++)
+                for (int j = 0; j < count - i - 1; j++)
                 {
-                    if (comparer.Compare(data[j], data[j + 1]) > 0)
+
+                    if (compareAdapter.Compare(data[j], data[j + 1]) > 0)
                     {
                         Swap(ref data[j], ref data[j + 1]);
                         tryAgain = true;
@@ -83,48 +78,17 @@ namespace Task02.Logic
                 }
                 i++;
             }
+            #endregion
         }
 
+        /// <summary>
+        /// Swap rows in jagged array
+        /// </summary>
         private static void Swap(ref int[] a, ref int[] b)
         {
             int[] c = a;
             a = b;
             b = c;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Comparer which take into constructor SortCriteria and Order from ServiceEnums
-        /// </summary>
-        private class Comparer : IComparer<int[]>
-        {
-            private readonly Func<int[], int> criteria;
-            private readonly Order order;
-
-            private Comparer() { }
-
-            public Comparer(Func<int[], int> criteriaParam, Order orderParam)
-            {
-                criteria = criteriaParam;
-                order = orderParam;
-            }
-            
-            public int Compare(int[] x, int[] y)
-            {
-                if (criteria(x) > criteria(y))
-                {
-                    return 1 * (int)order;
-                }
-                if (criteria(x) < criteria(y))
-                {
-                    return -1 * (int)order;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
         }
     }
 }

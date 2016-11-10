@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task02.Logic_refactoring_;
+using Task02.Logic;
 
 namespace Task02.NUnitTests
 {
-    class SumIncComparer : IComparer
+    class SumIncComparer : IComparer<int[]>
     {
         public int Compare(int[] a, int[] b)
         {
@@ -26,7 +26,7 @@ namespace Task02.NUnitTests
         }
     }
 
-    class SumDecComparer : IComparer
+    class SumDecComparer : IComparer<int[]>
     {
         public int Compare(int[] a, int[] b)
         {
@@ -45,7 +45,7 @@ namespace Task02.NUnitTests
         }
     }
 
-    class MaxElemIncComparer : IComparer
+    class MaxElemIncComparer : IComparer<int[]>
     {
         public int Compare(int[] a, int[] b)
         {
@@ -64,7 +64,7 @@ namespace Task02.NUnitTests
         }
     }
 
-    class MaxElemDecComparer : IComparer
+    class MaxElemDecComparer : IComparer<int[]>
     {
         public int Compare(int[] a, int[] b)
         {

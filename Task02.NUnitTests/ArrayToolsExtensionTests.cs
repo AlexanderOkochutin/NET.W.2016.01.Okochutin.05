@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Task02.Logic_refactoring_;
+using Task02.Logic;
 
 namespace Task02.NUnitTests
 {
@@ -90,31 +90,28 @@ namespace Task02.NUnitTests
         [Test]
         public void BubbleSort_TestData1_ExpectedData1()
         {
-            TestData1.BubbleSort(new SumDecComparer());
-            for (int i = 0; i < TestData1.Length; i++)
-            {
-                Assert.AreEqual(TestData1[i],ExpectedData1[i]);
-            }
+            TestData1.BubbleSort(new SumDecComparer().Compare);
+            CollectionAssert.AreEqual(TestData1,ExpectedData1);
         }
 
         [Test]
         public void BubbleSort_TestData2_ExpectedData2()
         {
-            TestData2.BubbleSort(new SumIncComparer());
+            TestData2.BubbleSort(new SumIncComparer().Compare);
             CollectionAssert.AreEqual(TestData2, ExpectedData2);
         }
 
      [Test]
         public void BubbleSort_TestData3_ExpectedData3()
         {
-            TestData3.BubbleSort(new MaxElemDecComparer());
+            TestData3.BubbleSort(new MaxElemDecComparer().Compare);
             CollectionAssert.AreEqual(TestData3, ExpectedData3);
         }
         
         [Test]
         public void BubbleSort_TestData4_ExpectedData4()
         {
-            TestData4.BubbleSort(new MaxElemIncComparer());
+            TestData4.BubbleSort(new MaxElemIncComparer().Compare);
             CollectionAssert.AreEqual(TestData4, ExpectedData4);
         }
         

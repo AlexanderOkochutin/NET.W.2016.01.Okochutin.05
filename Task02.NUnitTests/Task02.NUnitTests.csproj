@@ -49,10 +49,6 @@
     <Compile Include="TestComparers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Task02.Logic%28refactoring%29\Task02.Logic%28refactoring%29.csproj">
-      <Project>{60d84b20-2f60-4ec8-9666-00b418e56b3c}</Project>
-      <Name>Task02.Logic%28refactoring%29</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Task02.Logic\Task02.Logic.csproj">
       <Project>{a07938f8-87c0-4889-bda7-f219cc20f220}</Project>
       <Name>Task02.Logic</Name>
